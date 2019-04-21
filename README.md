@@ -48,7 +48,12 @@ npm install
 npm run prod
 ````
 
-10. access the app with the uri
+10. Run your laravel with php builtin server
+````
+php artisan serve
+````
+
+11. access the app
 ```
-/api/todos
+http://localhost:8000
 ```

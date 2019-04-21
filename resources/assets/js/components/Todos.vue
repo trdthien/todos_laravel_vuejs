@@ -12,22 +12,17 @@
             <input id="toggle-all" class="toggle-all" type="checkbox" v-model="allDone">
             <label for="toggle-all"></label>
             <ul class="todo-list">
-                <li v-for="todo in filteredTodos"
-                    class="todo"
-                    :key="todo.id"
-                    :class="{ completed: todo.completed, editing: todo == editedTodo }">
-                    <div class="view">
-                        <input class="toggle" type="checkbox" v-model="todo.completed" @click="completeTodo(todo)">
-                        <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
-                        <button class="destroy" @click="remove(todo.id)"></button>
-                    </div>
-                    <input class="edit" type="text"
-                           v-model="todo.title"
-                           v-todo-focus="todo == editedTodo"
-                           @blur="doneEdit(todo)"
-                           @keyup.enter="doneEdit(todo)"
-                           @keyup.esc="cancelEdit(todo)">
-                </li>
+                <todo-component
+                        v-for="todo in filteredTodos"
+                        :todo="todo"
+                        :key="todo.id"
+                        :editedTodo="editedTodo"
+                        @editTodo="editTodo"
+                        @completeTodo="completeTodo"
+                        @remove="remove"
+                        @doneEdit="doneEdit"
+                        @cancelEdit="cancelEdit"
+                ></todo-component>
             </ul>
         </section>
         <footer class="footer" v-show="todos.length" v-cloak>
@@ -47,6 +42,8 @@
 </template>
 
 <script>
+    import TodoComponent from "./Todo";
+
     function Todo({ id, title, completed = false}) {
         this.id = id;
         this.title = title;
@@ -74,6 +71,7 @@
 
 
     export default {
+        components: {Todo},
         data() {
             return {
                 todos: [],
@@ -133,7 +131,7 @@
                 });
             },
 
-            editTodo: function (todo) {
+            editTodo(todo) {
                 this.beforeEditCache = todo.title
                 this.editedTodo = todo
             },
@@ -176,6 +174,7 @@
             completeTodo(todo) {
                 todo.completed = todo.completed == 1 ? 0 : 1;
                 window.axios.put(`/api/todos/${todo.id}`, todo)
+                console.log(todo);
             },
 
             // handle routing
@@ -196,13 +195,9 @@
             window.addEventListener('hashchange', this.onHashChange);
         },
 
-        directives: {
-            'todo-focus': function (el, binding) {
-                if (binding.value) {
-                    el.focus()
-                }
-            }
-        }
+        components: {
+            TodoComponent
+        },
     }
 </script>
 <style>

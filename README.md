@@ -1,10 +1,6 @@
-# vue-laravel-crud
+# vue-laravel-todo
 
-Vue 2.5 + Laravel 5.5 + Axios CRUD example app
-
-> Inspiration from [https://github.com/herusdianto/laravel-vue-crud](https://github.com/herusdianto/laravel-vue-crud)
-
-<img src="demo.gif" width="416">
+Vue 2.5 + Laravel 5.5 + Axios TODOs example app
 
 ### Installation
 
@@ -13,7 +9,7 @@ Vue 2.5 + Laravel 5.5 + Axios CRUD example app
 2. Change to directory
 
 ````
-cd vue-laravel-crud
+cd todos_laravel_vuejs
 ````   
 
 3. Install dependencies
@@ -52,15 +48,7 @@ npm install
 npm run prod
 ````
 
-### Dummy Data
-
-1. Open Tinker
-
-````
-php artisan tinker
-````
-    
-2. Use factory script
-````
-factory(App\Crud::class, 3)->create();
-````
+10. access the app with the uri
+```
+/api/todos
+```

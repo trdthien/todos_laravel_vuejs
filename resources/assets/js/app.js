@@ -18,12 +18,12 @@ Vue.config.performance = true;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import App from './components/App.vue';
+import Todos from './components/Todos.vue';
 
 const app = new Vue({
   el: '#app',
   components: {
-    App
+    Todos
   },
-  render: h => h(App)
+  render: h => h(Todos)
 });
